@@ -47,5 +47,9 @@ module.exports = {
 
     getByEmailAndSenha: async function(email, senha) {
         return await UserModel.find({ email: email, senha: senha });
+    },
+
+    getByEmail: async function(email) {
+        return await UserModel.find({ email: email });
     }
 }

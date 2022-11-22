@@ -4,7 +4,6 @@ var router = express.Router();
 const UserDAO = require("../model/User")
 const {sucess, fail} = require("../helpers/resposta")
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   res.render('users', { title: 'Express' });
 });
@@ -25,6 +24,7 @@ router.get("/listUsers", (req, res) => {
   UserDAO.list().then((user) => {
       res.json(sucess(user, "list"))
       console.log(user)
+      console.log(req.session.authenticated)
   })
 })
 

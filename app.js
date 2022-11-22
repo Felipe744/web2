@@ -3,14 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require("express-session");
 
-
+var welcomeRouter = require('./routes/welcome');
 var loginRouter = require('./routes/login');
 var usersRouter = require('./routes/users');
+
 const mustacheExpress = require("mustache-express");
-const jwt = require("jsonwebtoken");
+const store = new session.MemoryStore();
 
 var app = express();
+app.use(session({
+  secret: "#@A4327Asdzw",
+  resave: false,
+  saveUninitialized: false,
+  store: store
+}));
 const engine = mustacheExpress();
 app.engine("mustache", engine);
   
@@ -25,6 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', welcomeRouter);
 app.use('/login', loginRouter);
 app.use('/users', usersRouter);
 
