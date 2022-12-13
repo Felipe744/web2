@@ -4,7 +4,8 @@ const usersSchema = new mongoose.Schema({
     nome: String,
     idade: Number,
     email: String,
-    senha: String
+    senha: String,
+    isAdmin: Boolean
 });
 
 const UserModel = mongoose.model("User", usersSchema);
@@ -20,21 +21,14 @@ module.exports = {
             nome: nome,
             idade: idade,
             email: email,
-            senha: senha,
+            senha: senha
         });
         await users.save();
         return users;
     },
 
-    update: async function(id, obj) {
-        let users = await UserModel.findById(id);
-        if (!users) {
-            return false;
-        }
-        
-        Object.keys(obj).forEach(key => users[key] = obj[key]);
-        await users.save();
-        return users;
+    update: async function(email, obj) {
+        let users = await UserModel.findOneAndUpdate({ email: email } , obj);
     },
 
     delete: async function(id) {

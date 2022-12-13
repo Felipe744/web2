@@ -4,7 +4,8 @@ var router = express.Router();
 const UserDAO = require("../model/User")
 
 router.get('/', function(req, res, next) {
-  res.render('login', { title: 'Express' });
+  req.session.authenticated = false;
+  res.render('login');
 });
 
 router.post("/", (req, res) => {
@@ -15,13 +16,12 @@ router.post("/", (req, res) => {
     console.log(user.length)
     if (user.length > 0) {
       req.session.authenticated = true;
-      req.session.user = { email };
-      res.send(req.session);
+      req.session.user = { email, isAdmin: user[0].isAdmin };
+      res.render('recurso');
     }
     else {
-      res.status(403).json({ msg: 'Credenciais Invalidas' });
+      res.render('users-error');
     }
-    
   })
 })
 

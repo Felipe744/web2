@@ -8,6 +8,13 @@ const session = require("express-session");
 var welcomeRouter = require('./routes/welcome');
 var loginRouter = require('./routes/login');
 var usersRouter = require('./routes/users');
+var recursoRouter = require('./routes/recurso');
+var editarUsuarioRouter = require('./routes/editar-usuario');
+var facilRouter = require('./routes/facil');
+var dificilRouter = require('./routes/dificil');
+var historicoRouter = require('./routes/historico');
+var adminHistoricoRouter = require('./routes/admin-historico');
+var adminRouter = require('./routes/admin');
 
 const mustacheExpress = require("mustache-express");
 const store = new session.MemoryStore();
@@ -36,6 +43,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', welcomeRouter);
 app.use('/login', loginRouter);
 app.use('/users', usersRouter);
+app.use('/recurso', recursoRouter);
+app.use('/editarUsuario', editarUsuarioRouter);
+app.use('/facil', facilRouter);
+app.use('/dificil', dificilRouter);
+app.use('/historico', historicoRouter);
+app.use('/admin', adminRouter);
+app.use('/admin-historico', adminHistoricoRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));

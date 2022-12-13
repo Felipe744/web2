@@ -11,12 +11,20 @@ router.get('/', function(req, res, next) {
 router.post("/", (req, res) => {
   const {nome, idade, email, senha} = req.body
 
-  UserDAO.save(nome, idade, email, senha).then(user => {
-      res.json(sucess(user))
-      console.log("Usuario inserido com sucesso!")
-  }).catch(err => {
-      console.log(err)
-      res.status(500).json(fail("Falha ao inserir o novo usuário!"))
+  UserDAO.getByEmail(email).then((user) => {
+    if (user.length > 0) {
+      res.render('users-email-exists');
+    }
+    else if (!nome || !idade || !email || !senha) {
+      res.render('users-error');
+    }
+    else {
+      UserDAO.save(nome, idade, email, senha).then(user => {
+        res.render('login');
+      }).catch(err => {
+        res.status(500).json(fail("Falha ao inserir o novo usuário!"))
+      })
+    }
   })
 })
 
