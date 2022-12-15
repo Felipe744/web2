@@ -15,6 +15,7 @@ var dificilRouter = require('./routes/dificil');
 var historicoRouter = require('./routes/historico');
 var adminHistoricoRouter = require('./routes/admin-historico');
 var adminRouter = require('./routes/admin');
+var docRouter = require('./routes/doc');
 
 const mustacheExpress = require("mustache-express");
 const store = new session.MemoryStore();
@@ -50,6 +51,7 @@ app.use('/dificil', dificilRouter);
 app.use('/historico', historicoRouter);
 app.use('/admin', adminRouter);
 app.use('/admin-historico', adminHistoricoRouter);
+app.use('/doc', docRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));

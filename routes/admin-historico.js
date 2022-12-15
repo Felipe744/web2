@@ -7,6 +7,9 @@ const {sucess, fail} = require("../helpers/resposta")
 router.post('/', function(req, res, next) {
   if (!req.session.authenticated)
     res.render('login');
+  else if (!req.session.user.isAdmin) {
+    res.render('admin-semp');
+  }
   else {
     const {email} = req.body
 
