@@ -31,9 +31,10 @@
             </div>
             <div style="display: flex; align-items: center; justify-content: center; flex-direction: row; padding-top: 30px">
               <div class="form-outline mb-4" style="width: 100px;">
-                <span class="form-label">{{valor1}} + {{valor2}}</span>
+                <span class="form-label">{{valor1}} {{op}} {{valor2}}</span>
                 <input style="display: none" type="valor1" id="valor1" name="valor1" class="form-control" value={{valor1}} />
                 <input style="display: none" type="valor2" id="valor2" name="valor2" class="form-control" value={{valor2}} />
+                <input style="display: none" type="op" id="op" name="op" class="form-control" value={{op}} />
               </div>
               <div class="form-outline mb-4" style="width: 100px;">
                 <label class="form-label" for=senha">Resultado</label>
